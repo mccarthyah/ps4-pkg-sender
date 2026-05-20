@@ -5,7 +5,7 @@ services:
     build: .
     container_name: ps4-pkg-sender
     ports:
-      - "10.10.10.57:58880:8080"
+      - "58880:8080"
     volumes:
       - ./pkgs:/app/pkgs
     environment:
