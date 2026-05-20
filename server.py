@@ -6,6 +6,11 @@ app = Flask(__name__)
 PKG_DIR = Path('/app/pkgs')
 PKG_DIR.mkdir(exist_ok=True)
 
+# Configuration from environment variables
+SERVER_IP = os.getenv('SERVER_IP', '0.0.0.0')
+SERVER_PORT = int(os.getenv('SERVER_PORT', 8080))
+PS4_IP = os.getenv('PS4_IP', 'N/A')
+
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({'status': 'healthy', 'service': 'ps4-pkg-sender'}), 200
@@ -42,10 +47,10 @@ def info():
     return jsonify({
         'service': 'PS4 PKG Sender',
         'version': '1.0.0',
-        'server_ip': '10.10.10.57',
-        'server_port': 58880,
-        'ps4_ip': '10.10.10.120'
+        'server_ip': SERVER_IP if SERVER_IP != '0.0.0.0' else 'All interfaces',
+        'server_port': SERVER_PORT,
+        'ps4_ip': PS4_IP
     }), 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=False)
+    app.run(host='0.0.0.0', port=SERVER_PORT, debug=False)
