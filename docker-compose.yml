@@ -1,28 +1,9 @@
-version: '3.8'
-
 services:
-  ps4-pkg-sender:
+  ps4pkgsender:
     build: .
-    container_name: ps4-pkg-sender
+    container_name: ps4pkgsender
     ports:
       - "58880:8080"
     volumes:
-      - ./pkgs:/app/pkgs
-    environment:
-      - FLASK_ENV=production
+      - /zfsmount/media/ps4:/app/pkg
     restart: unless-stopped
-    networks:
-      - ps4_network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 5s
-
-networks:
-  ps4_network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 10.10.10.0/24
