@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <title>PS4 PKG Sender</title>
+    <style>
+        body { font-family: sans-serif; background: #111; color: #eee; }
+        .pkg { margin: 10px 0; }
+        button { padding: 8px 14px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+<h2>PS4 PKG Sender</h2>
+
+<p>Target: <b>10.10.10.120</b></p>
+<p>Server: <b>http://10.10.10.42:58880</b></p>
+
+<h3>Packages</h3>
+
+{% for f in files %}
+<div class="pkg">
+    <div>{{f}}</div>
+    <form method="post" action="/install/{{f}}" style="display:inline;">
+        <button type="submit">Install</button>
+    </form>
+</div>
+{% endfor %}
+
+</body>
+</html>
