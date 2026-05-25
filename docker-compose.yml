@@ -1,9 +1,12 @@
 services:
   ps4pkgsender:
-    build: .
+    image: mccarthyah/ps4-pkg-sender:latest
     container_name: ps4pkgsender
     ports:
       - "58880:8080"
     volumes:
       - /zfsmount/media/ps4:/app/pkg
+    environment:
+      - PS4_IP=10.10.10.120
+      - SERVER_IP=10.10.10.57
     restart: unless-stopped
