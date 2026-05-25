@@ -3,7 +3,8 @@ import os
 import requests
 
 PKG_DIR = "/app/pkg"
-PS4_IP = "10.10.10.57"
+PS4_IP = os.getenv("PS4_IP")
+SERVER_IP = os.getenv("SERVER_IP")
 PORT = 58880
 
 app = Flask(__name__)
@@ -29,7 +30,7 @@ def serve_pkg(filename):
 
 @app.route("/install/<path:filename>", methods=["POST"])
 def install(filename):
-    url = f"http://10.10.10.42:{PORT}/pkg/{filename}"
+    url = f"http://{SERVER_IP}:{PORT}/pkg/{filename}"
     api = f"http://{PS4_IP}:12800/api/install"
 
     payload = {
